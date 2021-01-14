@@ -1,5 +1,5 @@
-import Devlibs
 import XCTest
+@testable import Devlibs
 
 final class DelegationTests: XCTestCase {
     private var target: Target?

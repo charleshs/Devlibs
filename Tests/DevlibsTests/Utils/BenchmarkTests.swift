@@ -1,5 +1,5 @@
-import Devlibs
 import XCTest
+@testable import Devlibs
 
 final class BenchmarkTests: XCTestCase {
     func testNumberOfSamples() {
