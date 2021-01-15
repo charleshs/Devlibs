@@ -79,6 +79,12 @@ public final class Cache<Key: Hashable, Value> {
             wrapped.object(forKey: WrappedKey(key))
         }
     }
+
+    private func insert(contentsOf entries: [Entry]) {
+        entries.forEach { entry in
+            insert(entry.value, forKey: entry.key, cost: entry.cost)
+        }
+    }
 }
 
 // MARK: - Transformation
@@ -128,24 +134,6 @@ extension Cache {
 
 extension Cache.Entry: Codable where Key: Codable, Value: Codable {}
 
-extension Cache: Codable where Key: Codable, Value: Codable {
-    public convenience init(from decoder: Decoder) throws {
-        self.init()
-
-        let container = try decoder.singleValueContainer()
-        let entries = try container.decode([Entry].self)
-        entries.forEach { entry in
-            insert(entry.value, forKey: entry.key, cost: entry.cost)
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        let entries: [Entry] = getEntries()
-        try container.encode(entries)
-    }
-}
-
 // MARK: - Persistence
 
 extension Cache where Key: Codable, Value: Codable {
@@ -153,26 +141,33 @@ extension Cache where Key: Codable, Value: Codable {
         case cacheFolderDoesNotExist
     }
 
-    public static func readFromDisk(filename: String, fileManager: FileManager = .default) throws -> Cache {
-        let fileURL = try getFileURL(filename: filename, fileManager: fileManager)
-        let data = try Data(contentsOf: fileURL)
-
-        return try JSONDecoder().decode(Cache.self, from: data)
+    public static func createFromFile(filename: String, fileManager: FileManager = .default) throws -> Cache {
+        let cache = Cache()
+        try cache.loadFromDisk(filename: filename, fileManager: fileManager)
+        return cache
     }
 
-    private static func getFileURL(filename: String, fileManager: FileManager) throws -> URL {
-        guard let cacheFolderURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            throw PersistError.cacheFolderDoesNotExist
-        }
+    public func loadFromDisk(filename: String, fileManager: FileManager = .default) throws {
+        let fileURL = try getFileURL(filename: filename, fileManager: fileManager)
+        let data = try Data(contentsOf: fileURL)
+        let entries = try JSONDecoder().decode([Entry].self, from: data)
 
-        let fullFilename = [filename, "cache"].joined(separator: ".")
-        return cacheFolderURL.appendingPathComponent(fullFilename)
+        removeAll()
+        insert(contentsOf: entries)
     }
 
     public func saveToDisk(filename: String, fileManager: FileManager = .default) throws {
-        let fileURL = try Self.getFileURL(filename: filename, fileManager: fileManager)
-        let data = try JSONEncoder().encode(self)
+        let fileURL = try getFileURL(filename: filename, fileManager: fileManager)
+        let data = try JSONEncoder().encode(getEntries())
         try data.write(to: fileURL)
+    }
+
+    private func getFileURL(filename: String, fileManager: FileManager) throws -> URL {
+        guard let cacheFolderURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            throw PersistError.cacheFolderDoesNotExist
+        }
+        let fullFilename = [filename, "cache"].joined(separator: ".")
+        return cacheFolderURL.appendingPathComponent(fullFilename)
     }
 }
 
