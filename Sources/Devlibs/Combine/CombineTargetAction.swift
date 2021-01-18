@@ -62,6 +62,7 @@ extension Combine.Publishers.TargetAction {
         }
 
         func cancel() {
+            removeTargetAction(control, self, action)
             subscriber = nil
         }
 
