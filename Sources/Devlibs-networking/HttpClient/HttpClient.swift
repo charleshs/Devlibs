@@ -6,7 +6,7 @@ import Devlibs_core
 /// It supports both direct output as `Data` and conversion of response into any `Decodable` type.
 /// For debugging purposes, `HttpClient` accepts an `OSLog` object with which programmers then
 /// can access the auto-generated logs using `Console.app` on the MacOS .
-open class HttpClient {
+public final class HttpClient {
     /// Errors thrown by `HttpClient`.
     public enum Error: LocalizedError {
         case requestBuilderError(Swift.Error)
@@ -131,14 +131,12 @@ open class HttpClient {
         let completionHandler = Delegation<Result<Body, Error>, Void>.create(on: self) { client, result in
             completion(result)
 
-            #if DEBUG
             switch result {
             case .failure(let error):
                 client.logError(urlReqeust, identifier: identifier, error: error)
             case .success(let response):
                 client.logDecodingResponse(identifier: identifier, response: response)
             }
-            #endif
         }
 
         return performRequest(urlReqeust, uuid: uuid) { result in
@@ -176,14 +174,12 @@ open class HttpClient {
         let completionHandler = Delegation<Result<Body, Error>, Void>.create(on: self) { client, result in
             completion(result)
 
-            #if DEBUG
             switch result {
             case .failure(let error):
                 client.logError(request.resource.urlRequest, identifier: identifier, error: error)
             case .success(let response):
                 client.logDecodingResponse(identifier: identifier, response: response)
             }
-            #endif
         }
 
         return performRequest(request, uuid: uuid) { result in
@@ -212,9 +208,7 @@ open class HttpClient {
             if let uuid = pool.first(where: { (key, value) in value === task })?.key {
                 pool.removeValue(forKey: uuid)
 
-                #if DEBUG
                 logTaskCancelled(identifier: uuid.dataTaskIdentifier)
-                #endif
             }
         }
     }
@@ -231,9 +225,7 @@ open class HttpClient {
             let (urlRequest, error) = input
             completion(.failure(error))
 
-            #if DEBUG
             client.logError(urlRequest, identifier: uuid.dataTaskIdentifier, error: error)
-            #endif
         }
 
         switch request.prepareRequest() {
@@ -271,9 +263,7 @@ open class HttpClient {
     ) -> URLSessionDataTask {
         let identifier = uuid.dataTaskIdentifier
 
-        #if DEBUG
         logRequest(request, identifier: identifier)
-        #endif
 
         let removingTaskFromPoolHandler = Delegation<Void, Void>.create(on: self) { client, _ in
             client.$processingTasks.write { pool in
@@ -284,14 +274,12 @@ open class HttpClient {
         }
 
         let loggingHandler = Delegation<Result<Data, Error>, Void>.create(on: self) { client, result in
-            #if DEBUG
             switch result {
             case .failure(let error):
                 client.logError(request, identifier: identifier, error: error)
             case .success(let data):
                 client.logSuccess(request, identifier: identifier, data: data)
             }
-            #endif
         }
 
         let task = session.dataTask(with: request) { data, res, err in
@@ -402,28 +390,24 @@ extension HttpClient {
     /// - Parameter resource: The resource for the networking task.
     /// - Returns: An instance of type `AnyPublisher<Data, Error>`.
     public func dataPublisher<ResourceType: HttpResource>(for resource: ResourceType) -> AnyPublisher<Data, Error> {
-        let dataTaskDelegation = TaskDelegation<Data>.create(on: self) { client, completion in
+        let dataTaskHandler = TaskDelegation<Data>.create(on: self) { client, completion in
             let task = client.fetchData(for: resource, completion: completion)
-            return {
-                client.cancelTask(task)
-            }
+            return { client.cancelTask(task) }
         }
 
-        return publisher(delegation: dataTaskDelegation)
+        return publisher(handler: dataTaskHandler)
     }
 
     /// Returns a publisher that sends the result of type `Data` of the networking task on `Request`.
     /// - Parameter request: The request for the networking task.
     /// - Returns: An instance of type `AnyPublisher<Data, Error>`.
     public func dataPublisher<RequestType: Request>(for request: RequestType) -> AnyPublisher<Data, Error> {
-        let dataTaskDelegation = TaskDelegation<Data>.create(on: self) { client, completion in
+        let dataTaskHandler = TaskDelegation<Data>.create(on: self) { client, completion in
             let task = client.fetchData(for: request, completion: completion)
-            return {
-                client.cancelTask(task)
-            }
+            return { client.cancelTask(task) }
         }
 
-        return publisher(delegation: dataTaskDelegation)
+        return publisher(handler: dataTaskHandler)
     }
 
     /// Returns a publisher that sends the decoded response conforming to `Decodable` of the networking task on `HttpResource`.
@@ -434,14 +418,12 @@ extension HttpClient {
         as type: Body.Type,
         decoder: JSONDecoder = JSONDecoder()
     ) -> AnyPublisher<Body, Error> {
-        let dataTaskDelegation = TaskDelegation<Body>.create(on: self) { client, completion in
+        let dataTaskHandler = TaskDelegation<Body>.create(on: self) { client, completion in
             let task = client.fetchResponse(for: resource, responseDecodingType: Body.self, decoder: decoder, completion: completion)
-            return {
-                client.cancelTask(task)
-            }
+            return { client.cancelTask(task) }
         }
 
-        return publisher(delegation: dataTaskDelegation)
+        return publisher(handler: dataTaskHandler)
     }
 
     /// Returns a publisher that sends the decoded response conforming to `Decodable` of the networking task on `Request`.
@@ -452,20 +434,18 @@ extension HttpClient {
         as type: Body.Type,
         decoder: JSONDecoder = JSONDecoder()
     ) -> AnyPublisher<Body, Error> {
-        let dataTaskDelegation = TaskDelegation<Body>.create(on: self) { client, completion in
+        let dataTaskHandler = TaskDelegation<Body>.create(on: self) { client, completion in
             let task = client.fetchResponse(for: request, responseDecodingType: Body.self, decoder: decoder, completion: completion)
-            return {
-                client.cancelTask(task)
-            }
+            return { client.cancelTask(task) }
         }
 
-        return publisher(delegation: dataTaskDelegation)
+        return publisher(handler: dataTaskHandler)
     }
 
-    private func publisher<T>(delegation: TaskDelegation<T>) -> AnyPublisher<T, Error> {
+    private func publisher<T>(handler: TaskDelegation<T>) -> AnyPublisher<T, Error> {
         var cancel: Cancellation?
         return Future<T, Error> { promise in
-            cancel = delegation.invoke(promise)
+            cancel = handler.invoke(promise)
         }
         .handleEvents(receiveCancel: cancel)
         .share()

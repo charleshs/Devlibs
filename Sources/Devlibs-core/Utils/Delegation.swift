@@ -9,9 +9,9 @@ public final class Delegation<Input, Output> {
         on target: Target,
         closure: @escaping (Target, Input) -> Output
     ) -> Delegation<Input, Output> {
-        let delegation = Delegation<Input, Output>()
-        delegation.delegate(on: target, closure: closure)
-        return delegation
+        let handler = Delegation<Input, Output>()
+        handler.delegate(on: target, closure: closure)
+        return handler
     }
 
     @discardableResult

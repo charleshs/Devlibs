@@ -3,7 +3,6 @@ import UIKit
 
 /// `ContainerView` holds and displays another view with margins on each side. Consumed only by composition.
 public final class ContainerView: UIView, SingleViewWrappingContainer {
-
     /// The view managed by the `ContainerView`.
     public var contentView: UIView? {
         willSet {

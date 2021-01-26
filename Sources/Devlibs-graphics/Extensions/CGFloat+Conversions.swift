@@ -12,5 +12,4 @@ extension BinaryFloatingPoint {
         return CGFloat(self)
     }
 }
-
 #endif

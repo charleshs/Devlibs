@@ -2,7 +2,7 @@
 import UIKit
 import Devlibs_core
 
-public final class LoadingHUDView: UIView, SingleViewWrappingContainer {
+open class LoadingHUDView: UIView, SingleViewWrappingContainer {
     /// The container background for the HUD view.
     public var hudColor: UIColor? {
         get {
@@ -67,6 +67,7 @@ public final class LoadingHUDView: UIView, SingleViewWrappingContainer {
         $0.style = .whiteLarge
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.hidesWhenStopped = true
+        $0.startAnimating()
     }
 
     private let textLabel = UILabel().then {
@@ -96,12 +97,12 @@ public final class LoadingHUDView: UIView, SingleViewWrappingContainer {
     }
 
     /// Displays the loading HUD view.
-    public func startAnimating() {
+    open func startAnimating() {
         isHidden = false
     }
 
     /// Hides the loading HUD view.
-    public func stopAnimating() {
+    open func stopAnimating() {
         isHidden = true
     }
 
@@ -118,8 +119,6 @@ public final class LoadingHUDView: UIView, SingleViewWrappingContainer {
         // SingleViewWrappingContainer
         paste(child: stackView, toParent: hudContainerView)
         adjust(insets: edgeInsets)
-
-        loadingIndicatorView.startAnimating()
     }
 }
 
@@ -131,9 +130,9 @@ extension LoadingHUDView {
         var backgroundColor: UIColor {
             switch self {
             case .light:
-                return UIColor(white: 0.8, alpha: 1.0)
+                return .lightGray
             case .dark:
-                return UIColor(white: 0.2, alpha: 1.0)
+                return .darkGray
             }
         }
 

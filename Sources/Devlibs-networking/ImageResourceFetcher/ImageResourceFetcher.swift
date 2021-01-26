@@ -9,7 +9,7 @@ import Cocoa
 public typealias Image = NSImage
 #endif
 
-public final class RemoteImageLoader {
+public final class ImageResourceFetcher {
     public enum Error: Swift.Error {
         case invalidURL
         case dataNotImage
@@ -83,7 +83,7 @@ public final class RemoteImageLoader {
 #if canImport(Combine)
 import Combine
 
-extension RemoteImageLoader {
+extension ImageResourceFetcher {
     @available(iOS 13.0, tvOS 13.0, macOS 10.15, watchOS 6.0, *)
     public func imagePublisher(urlPath: String) -> AnyPublisher<Image, Error> {
         let loadImageHandler = Delegation<Completion, Void>.create(on: self) { loader, completion in
@@ -101,7 +101,7 @@ extension RemoteImageLoader {
 
 // MARK: - Internal
 
-private extension RemoteImageLoader {
+private extension ImageResourceFetcher {
     struct ImageResource: HttpResource {
         let url: URL
         let httpHeaders: [HTTP.Header] = []
@@ -110,7 +110,7 @@ private extension RemoteImageLoader {
     }
 }
 
-private extension RemoteImageLoader.ImageResource {
+private extension ImageResourceFetcher.ImageResource {
     init?(urlPath: String) {
         guard let url = URL(string: urlPath) else {
             return nil

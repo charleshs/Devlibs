@@ -10,13 +10,13 @@ final class DelegationTests: XCTestCase {
 
     func testInvokeBehavior() {
         let promise = expectation(description: "closure-invoked")
-        let delegation = Delegation<Bool, Int>.create(on: target!) { target, input in
+        let handler = Delegation<Bool, Int>.create(on: target!) { target, input in
             target.flag = input
             promise.fulfill()
             return 1
         }
 
-        let output = delegation.invoke(true)
+        let output = handler.invoke(true)
 
         XCTAssertNotNil(output)
         XCTAssertEqual(target?.flag, true)
@@ -25,13 +25,13 @@ final class DelegationTests: XCTestCase {
 
     func testCallAsFunction() {
         let promise = expectation(description: "closure-invoked")
-        let delegation = Delegation<Bool, Int>.create(on: target!) { target, input in
+        let handler = Delegation<Bool, Int>.create(on: target!) { target, input in
             target.flag = input
             promise.fulfill()
             return 1
         }
 
-        let output = delegation(true)
+        let output = handler(true)
 
         XCTAssertNotNil(output)
         XCTAssertEqual(target?.flag, true)
@@ -39,7 +39,7 @@ final class DelegationTests: XCTestCase {
     }
 
     func testWeakReference() {
-        let delegation = Delegation<Bool, Int>.create(on: target!) { target, input in
+        let handler = Delegation<Bool, Int>.create(on: target!) { target, input in
             XCTFail("Closure should not be executed")
             target.flag = input
             return 1
@@ -47,7 +47,7 @@ final class DelegationTests: XCTestCase {
 
         // Subtract target's ARC by 1.
         target = nil
-        let output = delegation.invoke(true)
+        let output = handler.invoke(true)
 
         XCTAssertNil(output)
     }
