@@ -28,6 +28,7 @@ extension Request {
     }
 }
 
+/// An object that modifies a `URLRequest` instance.
 public protocol RequestModifier: AnyObject {
     func modify(_ request: URLRequest) throws -> URLRequest
 }
@@ -46,6 +47,7 @@ public final class AggregateRequestModifier: RequestModifier {
     }
 }
 
+/// An object that modifies a `Data` instance (typically responses from a networking request).
 public protocol ResponseModifier: AnyObject {
     func modify(input: Data) throws -> Data
 }

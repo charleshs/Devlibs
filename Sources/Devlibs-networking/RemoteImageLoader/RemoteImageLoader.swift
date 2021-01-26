@@ -1,4 +1,5 @@
 import os.log
+import Devlibs_core
 
 #if canImport(UIKit)
 import UIKit

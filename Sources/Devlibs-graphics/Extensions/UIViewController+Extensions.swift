@@ -1,5 +1,6 @@
 #if os(iOS) || os(tvOS)
 import UIKit
+import Devlibs_core
 
 extension UIViewController {
     /// The view controller that is capable of presenting another view controller.

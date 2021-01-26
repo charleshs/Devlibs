@@ -10,7 +10,10 @@ let package = Package(
         .library(name: "Devlibs", targets: ["Devlibs"]),
     ],
     targets: [
-        .target(name: "Devlibs",dependencies: []),
-        .testTarget(name: "DevlibsTests",dependencies: ["Devlibs"]),
+        .target(name: "Devlibs", dependencies: ["Devlibs-core", "Devlibs-graphics", "Devlibs-networking"]),
+        .target(name: "Devlibs-core", dependencies: []),
+        .target(name: "Devlibs-graphics", dependencies: ["Devlibs-core"]),
+        .target(name: "Devlibs-networking", dependencies: ["Devlibs-core"]),
+        .testTarget(name: "DevlibsTests", dependencies: ["Devlibs"]),
     ]
 )

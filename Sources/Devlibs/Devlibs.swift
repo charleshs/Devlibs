@@ -1,3 +1,3 @@
-struct Devlibs {
-    var text = "Hello, World!"
-}
+@_exported import Devlibs_core
+@_exported import Devlibs_graphics
+@_exported import Devlibs_networking

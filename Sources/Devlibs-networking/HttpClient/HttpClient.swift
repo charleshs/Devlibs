@@ -1,5 +1,6 @@
 import Foundation
 import os.log
+import Devlibs_core
 
 /// A class that provides an universal functionality to perform data-fetching tasks using `URLSession`.
 /// It supports both direct output as `Data` and conversion of response into any `Decodable` type.
