@@ -7,31 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C23D3E825BFF52F00049308 /* Devlibs in Frameworks */ = {isa = PBXBuildFile; productRef = 7C23D3E725BFF52F00049308 /* Devlibs */; };
 		7C53159525B1F5CD0029ADE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C53159425B1F5CD0029ADE1 /* AppDelegate.swift */; };
 		7C53159E25B1F5CF0029ADE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C53159D25B1F5CF0029ADE1 /* Assets.xcassets */; };
 		7C5315A125B1F5CF0029ADE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C53159F25B1F5CF0029ADE1 /* LaunchScreen.storyboard */; };
-		7C5315AB25B1F5F20029ADE1 /* Devlibs in Frameworks */ = {isa = PBXBuildFile; productRef = 7C5315AA25B1F5F20029ADE1 /* Devlibs */; };
 		7C5315B025B1F7170029ADE1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5315AF25B1F7170029ADE1 /* BaseViewController.swift */; };
 		7C5315B525B1F7BF0029ADE1 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5315B425B1F7BF0029ADE1 /* MainTableViewCell.swift */; };
 		7C5315B925B1F7E70029ADE1 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5315B825B1F7E70029ADE1 /* MainTableViewController.swift */; };
 		7C5315BD25B1F9320029ADE1 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5315BC25B1F9320029ADE1 /* BaseTableViewController.swift */; };
 		7C5315C025B1F9580029ADE1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5315BF25B1F9580029ADE1 /* TabBarController.swift */; };
 		7C5315C325B1F9700029ADE1 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5315C225B1F9700029ADE1 /* AppRouter.swift */; };
+		7C9E61EB25C05DD0004360C2 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9E61EA25C05DD0004360C2 /* BaseTableViewCell.swift */; };
+		7CC026E825BAAB2F0083B030 /* ComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC026E725BAAB2F0083B030 /* ComponentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C23D3E525BFF51700049308 /* Devlibs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Devlibs; path = ../..; sourceTree = "<group>"; };
 		7C53159125B1F5CD0029ADE1 /* DevlibsDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DevlibsDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C53159425B1F5CD0029ADE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C53159D25B1F5CF0029ADE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C5315A025B1F5CF0029ADE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C5315A225B1F5CF0029ADE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C5315A725B1F5E50029ADE1 /* Devlibs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Devlibs; path = ../..; sourceTree = "<group>"; };
 		7C5315AF25B1F7170029ADE1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		7C5315B425B1F7BF0029ADE1 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		7C5315B825B1F7E70029ADE1 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		7C5315BC25B1F9320029ADE1 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		7C5315BF25B1F9580029ADE1 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		7C5315C225B1F9700029ADE1 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		7C9E61EA25C05DD0004360C2 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		7CC026E725BAAB2F0083B030 /* ComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C5315AB25B1F5F20029ADE1 /* Devlibs in Frameworks */,
+				7C23D3E825BFF52F00049308 /* Devlibs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,7 +53,7 @@
 		7C53158625B1F5950029ADE1 = {
 			isa = PBXGroup;
 			children = (
-				7C5315A725B1F5E50029ADE1 /* Devlibs */,
+				7C23D3E525BFF51700049308 /* Devlibs */,
 				7C53159325B1F5CD0029ADE1 /* DevlibsDemoApp */,
 				7C53159225B1F5CD0029ADE1 /* Products */,
 				7C5315A925B1F5F20029ADE1 /* Frameworks */,
@@ -89,6 +93,7 @@
 				7C53159425B1F5CD0029ADE1 /* AppDelegate.swift */,
 				7C5315C225B1F9700029ADE1 /* AppRouter.swift */,
 				7C5315AF25B1F7170029ADE1 /* BaseViewController.swift */,
+				7C9E61EA25C05DD0004360C2 /* BaseTableViewCell.swift */,
 				7C5315BC25B1F9320029ADE1 /* BaseTableViewController.swift */,
 				7C5315BF25B1F9580029ADE1 /* TabBarController.swift */,
 			);
@@ -100,6 +105,7 @@
 			children = (
 				7C5315B425B1F7BF0029ADE1 /* MainTableViewCell.swift */,
 				7C5315B825B1F7E70029ADE1 /* MainTableViewController.swift */,
+				7CC026E725BAAB2F0083B030 /* ComponentViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -121,7 +127,7 @@
 			);
 			name = DevlibsDemoApp;
 			packageProductDependencies = (
-				7C5315AA25B1F5F20029ADE1 /* Devlibs */,
+				7C23D3E725BFF52F00049308 /* Devlibs */,
 			);
 			productName = DevlibsDemoApp;
 			productReference = 7C53159125B1F5CD0029ADE1 /* DevlibsDemoApp.app */;
@@ -178,7 +184,9 @@
 			files = (
 				7C53159525B1F5CD0029ADE1 /* AppDelegate.swift in Sources */,
 				7C5315B525B1F7BF0029ADE1 /* MainTableViewCell.swift in Sources */,
+				7CC026E825BAAB2F0083B030 /* ComponentViewController.swift in Sources */,
 				7C5315BD25B1F9320029ADE1 /* BaseTableViewController.swift in Sources */,
+				7C9E61EB25C05DD0004360C2 /* BaseTableViewCell.swift in Sources */,
 				7C5315C025B1F9580029ADE1 /* TabBarController.swift in Sources */,
 				7C5315C325B1F9700029ADE1 /* AppRouter.swift in Sources */,
 				7C5315B925B1F7E70029ADE1 /* MainTableViewController.swift in Sources */,
@@ -378,7 +386,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7C5315AA25B1F5F20029ADE1 /* Devlibs */ = {
+		7C23D3E725BFF52F00049308 /* Devlibs */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Devlibs;
 		};

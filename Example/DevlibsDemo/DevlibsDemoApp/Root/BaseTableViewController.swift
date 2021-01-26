@@ -13,5 +13,14 @@ class BaseTableViewController: UITableViewController {
         super.viewDidLoad()
         view.backgroundColor = Self.backgroundColor
         tableView.backgroundColor = Self.backgroundColor
+        setupBackBarButtonItem()
+    }
+    
+    private func setupBackBarButtonItem() {
+        let backImage = UIImage(systemName: "chevron.backward")?.withRenderingMode(.alwaysTemplate)
+        navigationController?.navigationBar.backIndicatorImage = backImage
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .darkGray
     }
 }
