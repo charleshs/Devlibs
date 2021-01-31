@@ -2,12 +2,16 @@ import Foundation
 
 public protocol Request {
     var resource: HttpResource { get }
-    var requestModifier: RequestModifier { get }
-    var responseModifier: ResponseModifier { get }
+    var requestModifier: RequestModifier? { get }
+    var responseModifier: ResponseModifier? { get }
 }
 
 extension Request {
     public func prepareRequest() -> Result<URLRequest, HttpClient.Error> {
+        guard let requestModifier = requestModifier else {
+            return .success(resource.urlRequest)
+        }
+
         do {
             let request = try requestModifier.modify(resource.urlRequest)
             return .success(request)
@@ -18,6 +22,10 @@ extension Request {
     }
 
     public func modifyResponse(input data: Data) -> Result<Data, HttpClient.Error> {
+        guard let responseModifier = responseModifier else {
+            return .success(data)
+        }
+
         do {
             let outputData = try responseModifier.modify(input: data)
             return .success(outputData)
