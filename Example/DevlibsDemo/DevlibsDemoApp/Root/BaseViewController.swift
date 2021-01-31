@@ -1,5 +1,6 @@
 import Combine
 import UIKit
+import Devlibs
 
 class BaseViewController: UIViewController {
     class var backgroundColor: UIColor {
@@ -9,7 +10,9 @@ class BaseViewController: UIViewController {
     private var cancellables: Set<AnyCancellable> = []
 
     #if DEBUG
-    deinit { print("$%^deinit \(self.description)") }
+    deinit {
+        Logger.log("deinit: \(self.description)", .init(.debug))
+    }
     #endif
 
     override func viewDidLoad() {

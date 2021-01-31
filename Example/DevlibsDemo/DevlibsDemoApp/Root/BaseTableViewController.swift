@@ -1,4 +1,5 @@
 import UIKit
+import Devlibs
 
 class BaseTableViewController: UITableViewController {
     class var backgroundColor: UIColor {
@@ -6,7 +7,9 @@ class BaseTableViewController: UITableViewController {
     }
 
     #if DEBUG
-    deinit { print("$%^deinit \(self.description)") }
+    deinit {
+        Logger.log("deinit: \(self.description)", .init(.debug))
+    }
     #endif
 
     override func viewDidLoad() {
