@@ -4,19 +4,6 @@ import Combine
 
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension Combine.Publisher {
-    /// Publishes only elements that don’t match the previous element.
-    /// Invokes the passed closure when a duplicate is ignored.
-    /// - Parameter onRemoved: The closure to be called when duplicates are removed.
-    public func removeDuplicates(onIgnored: @escaping () -> Void) -> AnyPublisher<Output, Failure> where Output: Equatable {
-        return backtrack(max: 2)
-            .compactMap { args in
-                guard args.count == 2, args[0] == args[1] else { return args.last }
-                onIgnored()
-                return nil
-            }
-            .eraseToAnyPublisher()
-    }
-
     /// Transforms into a publisher that emits an array of maximum N consecutive elements from the upstream.
     /// - Parameter size: The maximum size of the array, must be greater than 1
     ///
@@ -67,7 +54,7 @@ extension Combine.Publisher {
 
     public func sinkUnretained<Target: AnyObject>(
         on target: Target,
-        receiveCompletion: @escaping (Target, Subscribers.Completion<Failure>) -> Void,
+        receiveCompletion: @escaping (Target, Subscribers.Completion<Failure>) -> Void = { _, _ in },
         receiveValue: @escaping (Target, Output) -> Void
     ) -> AnyCancellable {
         return sink { [weak target] completion in
