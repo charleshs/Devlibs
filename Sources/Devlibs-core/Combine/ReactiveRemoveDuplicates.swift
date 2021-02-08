@@ -33,7 +33,6 @@ extension Publishers {
         public typealias Output = Upstream.Output
         public typealias Failure = Upstream.Failure
 
-
         private let upstream: Upstream
         private let predicate: (Output, Output) -> Bool
         private let reaction: (Output) -> Void
