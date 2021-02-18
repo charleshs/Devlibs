@@ -1,8 +1,8 @@
 #if os(iOS) || os(tvOS)
 import UIKit
 
-open class GradientView: UIView {
-    open override class var layerClass: AnyClass {
+public final class GradientView: UIView {
+    public override class var layerClass: AnyClass {
         return CAGradientLayer.self
     }
 
@@ -11,31 +11,31 @@ open class GradientView: UIView {
     }
 }
 
-extension GradientView {
-    // MARK: - CAGradientLayer Mapping
+// MARK: - CAGradientLayer Mapping
 
+extension GradientView {
     public var type: CAGradientLayerType {
-        get { gradientLayer.type }
+        get { return gradientLayer.type }
         set { gradientLayer.type = newValue }
     }
 
     public var colors: [Any]? {
-        get { gradientLayer.colors }
+        get { return gradientLayer.colors }
         set { gradientLayer.colors = newValue }
     }
 
     public var locations: [NSNumber]? {
-        get { gradientLayer.locations }
+        get { return gradientLayer.locations }
         set { gradientLayer.locations = newValue }
     }
 
     public var startPoint: CGPoint {
-        get { gradientLayer.startPoint }
+        get { return gradientLayer.startPoint }
         set { gradientLayer.startPoint = newValue }
     }
 
     public var endPoint: CGPoint {
-        get { gradientLayer.endPoint }
+        get { return gradientLayer.endPoint }
         set { gradientLayer.endPoint = newValue }
     }
 }

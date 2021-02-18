@@ -13,12 +13,8 @@ public final class SeparatorLine: UIView {
 
     /// The color of separator.
     public var separatorColor: UIColor? {
-        get {
-            backgroundColor
-        }
-        set {
-            backgroundColor = newValue
-        }
+        get { return backgroundColor }
+        set { backgroundColor = newValue }
     }
 
     public convenience init(separatorColor: UIColor) {

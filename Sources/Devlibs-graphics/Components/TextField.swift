@@ -5,42 +5,26 @@ import UIKit
 open class TextField: UITextField {
     @IBInspectable
     public final var insetTop: CGFloat {
-        get {
-            return textInsets.top
-        }
-        set(insetTop) {
-            textInsets.top = insetTop
-        }
+        get { return textInsets.top }
+        set { textInsets.top = newValue }
     }
 
     @IBInspectable
     public final var insetLeft: CGFloat {
-        get {
-            return textInsets.left
-        }
-        set(insetLeft) {
-            textInsets.left = insetLeft
-        }
+        get { return textInsets.left }
+        set { textInsets.left = newValue }
     }
 
     @IBInspectable
     public final var insetRight: CGFloat {
-        get {
-            return textInsets.right
-        }
-        set(insetRight) {
-            textInsets.right = insetRight
-        }
+        get { return textInsets.right }
+        set { textInsets.right = newValue }
     }
 
     @IBInspectable
     public final var insetBottom: CGFloat {
-        get {
-            return textInsets.bottom
-        }
-        set(insetBottom) {
-            textInsets.bottom = insetBottom
-        }
+        get { return textInsets.bottom }
+        set { textInsets.bottom = newValue }
     }
 
     /// The insets of the text-editing area from the boundaries. Defaults to zero point on each side.

@@ -47,12 +47,12 @@ extension Combine.Publisher {
             .eraseToAnyPublisher()
     }
 
-    public func withUnretained<Target: AnyObject>(_ target: Target) -> AnyPublisher<(Target, Output), Failure> {
+    public func unretained<Target: AnyObject>(_ target: Target) -> AnyPublisher<(Target, Output), Failure> {
         return compactMap { [weak target] output in target.map { ($0, output) } }
             .eraseToAnyPublisher()
     }
 
-    public func sinkUnretained<Target: AnyObject>(
+    public func weakSink<Target: AnyObject>(
         on target: Target,
         receiveCompletion: @escaping (Target, Subscribers.Completion<Failure>) -> Void = { _, _ in },
         receiveValue: @escaping (Target, Output) -> Void
@@ -69,7 +69,7 @@ extension Combine.Publisher {
 
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension Combine.Publisher where Failure == Never {
-    public func assignUnretained<Root: AnyObject>(
+    public func weakAssign<Root: AnyObject>(
         to target: Root,
         for keyPath: ReferenceWritableKeyPath<Root, Output>
     ) -> AnyCancellable {
